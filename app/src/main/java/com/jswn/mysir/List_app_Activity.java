@@ -27,7 +27,6 @@ public class List_app_Activity extends Activity {
         public void handleMessage(Message msg) {
             if (msg.what == 0) {
                 list_app_gv.setAdapter(mY_listapp_adapter);
-//
             }
         }
     };
@@ -41,8 +40,7 @@ public class List_app_Activity extends Activity {
         list_app_gv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                VoiceListen voiceListen = new VoiceListen(getBaseContext());
-//                voiceListen.UI();
+
             }
         });
     }

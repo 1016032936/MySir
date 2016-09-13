@@ -64,17 +64,6 @@ public class VoiceService extends Service {
         mVIew = View.inflate(this, R.layout.snake_voice, null);
         ImageView aa = (ImageView) mVIew.findViewById(R.id.rocket_image);
 
-        mVIew.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                VoiceListen voiceListen = new VoiceListen(getBaseContext());
-                voiceListen.UI();
-                Intent intent = new Intent(getBaseContext(), Voice_touming.class);
-                intent.setFlags(intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
-            }
-        });
         mVIew.setOnTouchListener(new View.OnTouchListener() {
             private int startx;
             private int starty;
@@ -83,10 +72,6 @@ public class VoiceService extends Service {
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
-
-                        Intent intent = new Intent(getBaseContext(), Voice_touming.class);
-                        intent.setFlags(intent.FLAG_ACTIVITY_NEW_TASK);
-                        startActivity(intent);
 
 //                        获取按下的坐标
                         startx = (int) event.getRawX();
@@ -108,7 +93,9 @@ public class VoiceService extends Service {
                         starty = (int) event.getRawY();
                         break;
                     case MotionEvent.ACTION_UP:
-
+//                        Intent intent = new Intent(getBaseContext(), VoiceListen.class);
+//                        intent.setFlags(intent.FLAG_ACTIVITY_NEW_TASK);
+//                        startActivity(intent);
                         break;
                 }
                 return true;

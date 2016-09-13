@@ -77,7 +77,6 @@ public class HttpUtils {
         Gson gson = new Gson();
         Result result = null;
         try {
-
             result = gson.fromJson(json_text, Result.class);
             message_tuling.setMsg(result.getText());
         } catch (Exception e) {
@@ -91,7 +90,7 @@ public class HttpUtils {
     }
 
     /**
-     * 将信息整合到链接上
+     * 将信息整合到api链接上
      *
      * @param msg
      * @return
@@ -99,7 +98,6 @@ public class HttpUtils {
     public static String setParams(String msg) {
         String url1 = "";
         try {
-
             url1 = url + "?key=" + API_KEY + "&info="
                     + URLEncoder.encode(msg, "UTF-8");
         } catch (Exception e) {

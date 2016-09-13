@@ -26,7 +26,11 @@
         </activity>
         <activity android:name=".Home_Activity" />
         <activity android:name=".List_app_Activity" />
-        <activity android:name=".Voice_touming"/>
+        <activity android:name=".Voice_touming" />
+        <activity
+            android:name="com.jswn.XunFeiYuyin.VoiceListen"
+            android:theme="@android:style/Theme.Translucent" />
+        <activity android:name=".Voice_sousuo_Actvity"/>
 
         <service android:name="com.jswn.MyService.VoiceService" />
     </application>

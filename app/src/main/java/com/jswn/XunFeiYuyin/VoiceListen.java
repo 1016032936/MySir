@@ -7,9 +7,12 @@ package com.jswn.XunFeiYuyin;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.speech.SpeechRecognizer;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Window;
 import android.widget.Toast;
 
 import com.iflytek.cloud.ErrorCode;
@@ -20,6 +23,8 @@ import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SpeechUtility;
 import com.iflytek.cloud.ui.RecognizerDialog;
 import com.iflytek.cloud.ui.RecognizerDialogListener;
+import com.jswn.UtilTools.Content;
+import com.jswn.UtilTools.SpUtils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -32,28 +37,36 @@ import org.json.JSONTokener;
 public class VoiceListen extends Activity {
     private RecognizerDialog mDialog;
     private Mylistener mListener;
+    public int code=0;
     //    SpeechRecognizer speechRecognizer;
     public Context mContext;
-
-    public VoiceListen(Context context) {
-        mContext = context;
-
-
-    }
+//
+//    public VoiceListen(Context context) {
+//        mContext = context;
+//
+//
+//    }
 
     private InitListener mInitlistener = new InitListener() {
         @Override
         public void onInit(int i) {
             if (i != ErrorCode.SUCCESS) {
-                Toast.makeText(mContext, "error 识别错误", Toast.LENGTH_SHORT).show();
+                Toast.makeText(VoiceListen.this, "error 识别错误", Toast.LENGTH_SHORT).show();
             }
         }
     };
 
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        UI();
+    }
+
     public void UI() {
         if (mDialog == null) {
-            mDialog = new RecognizerDialog(mContext, mInitlistener);
+            mDialog = new RecognizerDialog(VoiceListen.this, mInitlistener);
         }
         /**
          * 设置识别参数
@@ -114,11 +127,15 @@ public class VoiceListen extends Activity {
 
         @Override
         public void onResult(RecognizerResult recognizerResult, boolean b) {
-            Toast.makeText(mContext, GetJsonString(recognizerResult.getResultString()), Toast.LENGTH_SHORT).show();
+            Toast.makeText(VoiceListen.this, GetJsonString(recognizerResult.getResultString()), Toast.LENGTH_SHORT).show();
             if (mDialog != null) {
                 mDialog.dismiss();
             }
+            Intent intent = new Intent();
+            intent.putExtra("msg",GetJsonString(recognizerResult.getResultString()));
+            setResult(1,intent);
             Log.i("xunfei", GetJsonString(recognizerResult.getResultString()));
+            finish();
         }
 
         @Override
@@ -126,20 +143,20 @@ public class VoiceListen extends Activity {
             int errorCoder = speechError.getErrorCode();
             switch (errorCoder) {
                 case 10118:
-                    Toast.makeText(mContext, "你没有讲任何话", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(VoiceListen.this, "你没有讲任何话", Toast.LENGTH_SHORT).show();
                     break;
                 case 10204:
-                    Toast.makeText(mContext, "网络问题", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(VoiceListen.this, "网络问题", Toast.LENGTH_SHORT).show();
                     break;
                 case 10111:
-                    Toast.makeText(mContext, "引擎初始化出问题，错误码：10111", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(VoiceListen.this, "引擎初始化出问题，错误码：10111", Toast.LENGTH_SHORT).show();
                     break;
                 case 10132:
-                    Toast.makeText(mContext, "问题，错误码：10132", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(VoiceListen.this, "问题，错误码：10132", Toast.LENGTH_SHORT).show();
                 case 11201:
-                    Toast.makeText(mContext, "语音次数限制了", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(VoiceListen.this, "语音次数限制了", Toast.LENGTH_SHORT).show();
                 default:
-                    Toast.makeText(mContext, "未知错误", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(VoiceListen.this, "未知错误", Toast.LENGTH_SHORT).show();
                     break;
             }
         }

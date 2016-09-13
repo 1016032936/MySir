@@ -1,6 +1,7 @@
 package com.jswn.mysir;
 
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -22,30 +23,38 @@ import com.iflytek.cloud.SpeechUtility;
 import com.jswn.MyAdapter.MyAdapter_list;
 import com.jswn.MyBean.Message_tuling;
 import com.jswn.MyService.VoiceService;
+import com.jswn.UtilTools.Content;
 import com.jswn.UtilTools.HttpUtils;
+import com.jswn.UtilTools.SpUtils;
 import com.jswn.XunFeiYuyin.TextToVoice;
 import com.jswn.XunFeiYuyin.VoiceListen;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Home_Activity extends FragmentActivity {
-    private ImageView yuyin_bt;
-    private TextView write_voice;
-    private Button send_bt;
-    private EditText msg_ed;
-    public List<Message_tuling> mdata;
-    public MyAdapter_list myAdapter_list;
-    private ListView mListView;
-    public TextToVoice mT2V;
+public class Home_Activity extends Activity implements View.OnClickListener {
+    private ImageView yuyin_bt;//语音输入按钮
+    private TextView write_voice; //文本录入按钮
+    private TextView sousuo_play; //玩转语音
+    private Button send_bt; //发送按钮
+    private EditText msg_ed; //文字编辑框
+    public List<Message_tuling> mdata; //机器人聊天消息类集合
+    public MyAdapter_list myAdapter_list; //聊天信息展示适配器
+    private ListView mListView; //聊天信息listview
+    public TextToVoice mT2V; //文字转语音类
 
+    /**
+     * 用来更新聊天信息的实时变化
+     */
     private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             Message_tuling from_msg = (Message_tuling) msg.obj;
             mT2V.Tetx2voice(from_msg.msg);
             mdata.add(from_msg);
+            //通知适配器更新
             myAdapter_list.notifyDataSetChanged();
+            //增加数据源列表数据
             mListView.setSelection(mdata.size() - 1);
         }
     };
@@ -60,9 +69,10 @@ public class Home_Activity extends FragmentActivity {
         InitView();
         initData();
 
-        Intent intent = new  Intent(Home_Activity.this, VoiceService.class);
+        Intent intent = new Intent(Home_Activity.this, VoiceService.class);
         startService(intent);
     }
+
     /**
      * 初始化数据
      */
@@ -71,36 +81,75 @@ public class Home_Activity extends FragmentActivity {
         myAdapter_list = new MyAdapter_list(Home_Activity.this, mdata);
         mListView.setAdapter(myAdapter_list);
     }
-//<code></code>
+
     /**
      * 初始化
      */
     private void InitView() {
         mListView = (ListView) findViewById(R.id.list_message);
+        sousuo_play = (TextView) findViewById(R.id.sousuo_play);
         write_voice = (TextView) findViewById(R.id.write_voice);
         yuyin_bt = (ImageView) findViewById(R.id.yuyin);
         send_bt = (Button) findViewById(R.id.send_wenzi);
         msg_ed = (EditText) findViewById(R.id.ed_msg_1);
 
-        write_voice.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        write_voice.setOnClickListener(this);
+        sousuo_play.setOnClickListener(this);
+        yuyin_bt.setOnClickListener(this);
+        send_bt.setOnClickListener(this);
+    }
 
+    /**
+     * 语音输入从透明actvity返回的语音文本数据
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1) {
+            final String msg = data.getStringExtra("msg");
+            if (TextUtils.isEmpty(msg)) {
+                Toast.makeText(Home_Activity.this, "kong", Toast.LENGTH_SHORT).show();
+                return;
             }
-        });
+            //整合数据
+            Message_tuling msg_tu = new Message_tuling();
+            msg_tu.setMsg(msg);
+            msg_tu.setDate(new java.util.Date());
+            msg_tu.setType(Message_tuling.Type.OUTCOMING);
+            mdata.add(msg_tu);
+            //通知适配器去更新
+            myAdapter_list.notifyDataSetChanged();
+            mListView.setSelection(mdata.size() - 1);
+            msg_ed.setText("");
+            //获取子线程
+            new Thread() {
+                @Override
+                public void run() {
+                    //获取到返回的信息
 
-        yuyin_bt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                VoiceListen vcl = new VoiceListen(Home_Activity.this);
-                vcl.UI();
-            }
-        });
+                    Message_tuling from_msg = HttpUtils.sendMessage(msg);
+                    Message msg_o = Message.obtain();
+                    msg_o.obj = from_msg;
+                    mHandler.sendMessage(msg_o);
+                }
+            }.start();
 
-        send_bt.setOnClickListener(new View.OnClickListener() {
-            @TargetApi(Build.VERSION_CODES.M)
-            @Override
-            public void onClick(View v) {
+
+        }
+    }
+
+    /**
+     * 该actvity下的各种响应事件
+     * @param v
+     */
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            //发送文字信息
+            case R.id.send_wenzi:
                 final String msg = msg_ed.getText().toString();
 
                 if (TextUtils.isEmpty(msg)) {
@@ -122,14 +171,25 @@ public class Home_Activity extends FragmentActivity {
                     @Override
                     public void run() {
                         //获取到返回的信息
-
                         Message_tuling from_msg = HttpUtils.sendMessage(msg);
                         Message msg_o = Message.obtain();
                         msg_o.obj = from_msg;
                         mHandler.sendMessage(msg_o);
                     }
                 }.start();
-            }
-        });
+                break;
+            //语音发送信息
+            case R.id.yuyin:
+                Intent intent = new Intent(Home_Activity.this, VoiceListen.class);
+                startActivityForResult(intent, 1);
+                break;
+            //玩转语音搜索
+            case R.id.sousuo_play:
+                Intent play_sousuo = new Intent(Home_Activity.this, Voice_sousuo_Actvity.class);
+                startActivity(play_sousuo);
+                break;
+            case R.id.write_voice:
+                break;
+        }
     }
 }

@@ -16,35 +16,36 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:orientation="horizontal"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
         <TextView
             android:id="@+id/write_voice"
-            android:layout_weight="1"
-            android:gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:drawableTop="@drawable/voice_writer"
+            android:gravity="center"
             android:text="文本录入" />
 
         <TextView
-            android:layout_weight="1"
-            android:gravity="center"
+            android:id="@+id/sousuo_play"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:drawableTop="@mipmap/sousuo"
+            android:gravity="center"
             android:text="玩转语音" />
     </LinearLayout>
+
     <ListView
-        android:background="#f1f0f4"
         android:id="@+id/list_message"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="#f1f0f4"
         android:divider="#00000000"
-        android:dividerHeight="0dip"
-        android:layout_weight="1">
-    </ListView>
+        android:dividerHeight="0dip"></ListView>
 
     <include layout="@layout/bottom_menu" />
 </LinearLayout>

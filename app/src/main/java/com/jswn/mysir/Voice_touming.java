@@ -14,7 +14,5 @@ public class Voice_touming extends Activity {
         //TODO
         super.onCreate(savedInstanceState);
         setContentView(R.layout.support_simple_spinner_dropdown_item);
-//        VoiceListen voiceListen = new VoiceListen(getBaseContext());
-//        voiceListen.UI();
     }
 }
