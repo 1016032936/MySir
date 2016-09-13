@@ -172,9 +172,9 @@ public class Splash_Activity extends Activity {
                     msg.what = JSON_ERROR;
                 } finally {
                     long endTime = SystemClock.currentThreadTimeMillis();
-                    if (endTime - startTime < 3000) {
+                    if (endTime - startTime < 2000) {
                         try {
-                            Thread.sleep(3000 - (endTime - startTime));
+                            Thread.sleep(2000 - (endTime - startTime));
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }

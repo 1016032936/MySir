@@ -26,7 +26,7 @@
         </activity>
         <activity android:name=".Home_Activity" />
         <activity android:name=".List_app_Activity" />
-        <activity android:name=".Voice_touming" />
+        <activity android:name=".Voice_touming"/>
 
         <service android:name="com.jswn.MyService.VoiceService" />
     </application>

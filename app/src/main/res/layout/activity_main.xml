@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <!-- android:orientation="horizontal"-->>
@@ -11,37 +10,12 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="horizontal">
 
             <include layout="@layout/left_memu" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/title_green"
-                    android:gravity="center"
-                    android:padding="5dp"
-                    android:text="极速蜗牛"
-                    android:textColor="#ffff"
-                    android:textSize="20dp" />
-
-                <android.support.v4.view.ViewPager
-                    android:id="@+id/Viewpager_vg"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1">
-
-                </android.support.v4.view.ViewPager>
-
-                <include layout="@layout/bottom_menu" />
-
-            </LinearLayout>
+            <include layout="@layout/right_actvity" />
         </LinearLayout>
     </com.jswn.Myview.Myscrllow>
 </RelativeLayout>

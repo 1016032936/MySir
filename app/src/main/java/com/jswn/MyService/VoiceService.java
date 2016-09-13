@@ -4,7 +4,6 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.PixelFormat;
-import android.graphics.drawable.AnimationDrawable;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.view.Gravity;
@@ -44,6 +43,10 @@ public class VoiceService extends Service {
         showToat();
     }
 
+
+    WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
+
+
     public void showToat() {
         //给吐司定义出来的参数(宽高,类型,触摸方式)
         final WindowManager.LayoutParams params = new WindowManager.LayoutParams();
@@ -60,17 +63,16 @@ public class VoiceService extends Service {
         //土司的显示效果布局文件
         mVIew = View.inflate(this, R.layout.snake_voice, null);
         ImageView aa = (ImageView) mVIew.findViewById(R.id.rocket_image);
-//        AnimationDrawable ad = (AnimationDrawable) aa.getBackground();
-//        ad.start();
+
         mVIew.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 VoiceListen voiceListen = new VoiceListen(getBaseContext());
                 voiceListen.UI();
-//                Intent intent = new Intent(getBaseContext(), Voice_touming.class);
-//                intent.setFlags(intent.FLAG_ACTIVITY_NEW_TASK);
-//                startActivity(intent);
+                Intent intent = new Intent(getBaseContext(), Voice_touming.class);
+                intent.setFlags(intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
             }
         });
         mVIew.setOnTouchListener(new View.OnTouchListener() {
@@ -81,10 +83,12 @@ public class VoiceService extends Service {
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
-//                        Intent intent = new Intent(getBaseContext(), Voice_touming.class);
-//                        intent.setFlags(intent.FLAG_ACTIVITY_NEW_TASK);
-//                        startActivity(intent);
-                        //获取按下的坐标
+
+                        Intent intent = new Intent(getBaseContext(), Voice_touming.class);
+                        intent.setFlags(intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+
+//                        获取按下的坐标
                         startx = (int) event.getRawX();
                         starty = (int) event.getRawY();
                         break;

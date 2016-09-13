@@ -8,5 +8,5 @@
         android:id="@+id/rocket_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@mipmap/woniu" />
+        android:background="@mipmap/window_voice" />
 </LinearLayout>
