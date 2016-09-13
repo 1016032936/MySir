@@ -71,7 +71,7 @@ public class Home_Activity extends FragmentActivity {
         myAdapter_list = new MyAdapter_list(Home_Activity.this, mdata);
         mListView.setAdapter(myAdapter_list);
     }
-
+//<code></code>
     /**
      * 初始化
      */
