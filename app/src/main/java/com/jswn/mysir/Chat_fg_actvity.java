@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.jswn.MyAdapter.MyAdapter_list;
 import com.jswn.MyBean.Message_tuling;
 import com.jswn.UtilTools.HttpUtils;
+import com.jswn.XunFeiYuyin.VoiceListen;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,6 +75,7 @@ public class Chat_fg_actvity extends Fragment {
             @Override
             public void onClick(View v) {
                 final String msg = msg_ed.getText().toString();
+
                 if (TextUtils.isEmpty(msg)) {
                     Toast.makeText(getContext(), "kong", Toast.LENGTH_SHORT).show();
                     return;
