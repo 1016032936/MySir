@@ -1,5 +1,6 @@
 package com.jswn.MyBean;
 
+import java.net.URL;
 import java.util.Date;
 
 /**
@@ -8,9 +9,37 @@ import java.util.Date;
 public class Message_tuling {
 
     public String name;
+    public int code;
+    public String detailurl;
     public String msg;
+    public String url;
     private Type type;
     private Date date;
+
+    public String getDetailurl() {
+        return detailurl;
+    }
+
+    public void setDetailurl(String detailurl) {
+        this.detailurl = detailurl;
+    }
+
+
+    public int getCode() {
+        return code;
+    }
+
+    public void setCode(int code) {
+        this.code = code;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
 
     public String getName() {
         return name;

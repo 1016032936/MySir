@@ -11,10 +11,13 @@ import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.Window;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -46,6 +49,9 @@ public class Home_Activity extends Activity implements View.OnClickListener {
     public MyAdapter_list myAdapter_list; //聊天信息展示适配器
     private ListView mListView; //聊天信息listview
     public TextToVoice mT2V; //文字转语音类
+    public WebView show;//web控件
+    public TextView bt_tv_web;//web隐藏控件
+    private LinearLayout linear;//web隐藏的主体
     /**
      * 用来更新聊天信息的实时变化
      */
@@ -54,6 +60,9 @@ public class Home_Activity extends Activity implements View.OnClickListener {
         public void handleMessage(Message msg) {
             Message_tuling from_msg = (Message_tuling) msg.obj;
             mT2V.Tetx2voice(from_msg.msg);
+            /**有url时会显示***/
+            startweb(from_msg);
+
             mdata.add(from_msg);
             //通知适配器更新
             myAdapter_list.notifyDataSetChanged();
@@ -102,14 +111,23 @@ public class Home_Activity extends Activity implements View.OnClickListener {
         togglebt.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                Intent voice_service = new Intent(Home_Activity.this,VoiceService.class);
-                if (isChecked){
+                Intent voice_service = new Intent(Home_Activity.this, VoiceService.class);
+                if (isChecked) {
                     startService(voice_service);
-                }else {
+                } else {
                     stopService(voice_service);
                 }
             }
         });
+
+
+        //web控件主体
+        show = (WebView) findViewById(R.id.web_intent);
+        bt_tv_web = (TextView) findViewById(R.id.bt_tv_web);
+        linear = (LinearLayout) findViewById(R.id.Linear);
+
+        //web控件主体的事件
+        bt_tv_web.setOnClickListener(this);
 
         //右菜单的事件响应
         write_voice.setOnClickListener(this);
@@ -132,6 +150,11 @@ public class Home_Activity extends Activity implements View.OnClickListener {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1) {
+            /**
+             * 无论又没url都要在点击发送后隐藏web主体
+             */
+            linear.setVisibility(View.GONE);
+
             final String msg = data.getStringExtra("msg");
             if (TextUtils.isEmpty(msg)) {
                 Toast.makeText(Home_Activity.this, "kong", Toast.LENGTH_SHORT).show();
@@ -154,6 +177,9 @@ public class Home_Activity extends Activity implements View.OnClickListener {
                     //获取到返回的信息
 
                     Message_tuling from_msg = HttpUtils.sendMessage(msg);
+//                    /**有url时会显示***/
+//                    startweb(from_msg);
+
                     Message msg_o = Message.obtain();
                     msg_o.obj = from_msg;
                     mHandler.sendMessage(msg_o);
@@ -176,6 +202,10 @@ public class Home_Activity extends Activity implements View.OnClickListener {
             //发送文字信息
             case R.id.send_wenzi:
                 final String msg = msg_ed.getText().toString();
+                /**
+                 * 无论又没url都要在点击发送后隐藏web主体
+                 */
+                linear.setVisibility(View.GONE);
 
                 if (TextUtils.isEmpty(msg)) {
                     Toast.makeText(Home_Activity.this, "kong", Toast.LENGTH_SHORT).show();
@@ -220,18 +250,34 @@ public class Home_Activity extends Activity implements View.OnClickListener {
             /***************侧滑菜单的事件响应操作*******************/
             //进入设置操作
             case R.id.setting_tv:
-                Intent setting_intent = new Intent(Home_Activity.this,Setting_Actvity.class);
+                Intent setting_intent = new Intent(Home_Activity.this, Setting_Actvity.class);
                 startActivity(setting_intent);
                 break;
-//            case R.id.toggle_onoff:
-//                Intent voice_service = new Intent(Home_Activity.this,VoiceService.class);
-//                if (togglebt.isChecked()){
-//                    startService(voice_service);
-//                }else {
-//                    stopService(voice_service);
-//                }
-//                break;
 
+            /*****web控件主体****/
+            case R.id.bt_tv_web:
+                linear.setVisibility(View.GONE);
+                break;
+        }
+    }
+
+    public void startweb(Message_tuling from_msg) {
+        String url = from_msg.getUrl();
+        String disurl = from_msg.getDetailurl();
+        if (url != null) {
+            linear.setVisibility(View.VISIBLE);
+            show.getSettings().setJavaScriptEnabled(true);
+            show.getSettings().setBlockNetworkImage(false);
+            show.setWebViewClient(new WebViewClient());
+            show.loadUrl(url);
+            url = "";
+        } else if (disurl != null) {
+            linear.setVisibility(View.VISIBLE);
+            show.getSettings().setJavaScriptEnabled(true);
+            show.getSettings().setBlockNetworkImage(false);
+            show.setWebViewClient(new WebViewClient());
+            show.loadUrl(disurl);
+            url = "";
         }
     }
 }

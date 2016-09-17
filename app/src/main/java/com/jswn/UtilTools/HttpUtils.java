@@ -82,7 +82,9 @@ public class HttpUtils {
         } catch (Exception e) {
             message_tuling.setMsg("系统繁忙");
         }
-
+        message_tuling.setDetailurl(result.getDetailurl());
+        message_tuling.setCode(result.getCode());
+        message_tuling.setUrl(result.getUrl());
         message_tuling.setDate(new Date());
         message_tuling.setType(Message_tuling.Type.INCOMING);
         return message_tuling;
