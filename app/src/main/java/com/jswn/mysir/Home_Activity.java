@@ -12,11 +12,13 @@ import android.text.TextUtils;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechUtility;
@@ -36,13 +38,14 @@ public class Home_Activity extends Activity implements View.OnClickListener {
     private ImageView yuyin_bt;//语音输入按钮
     private TextView write_voice; //文本录入按钮
     private TextView sousuo_play; //玩转语音
-    private Button send_bt; //发送按钮
+    private TextView setting_tv;//侧滑菜单的设置按钮
+    private ToggleButton togglebt;//窗口图标开关
+    private TextView send_bt; //发送按钮
     private EditText msg_ed; //文字编辑框
     public List<Message_tuling> mdata; //机器人聊天消息类集合
     public MyAdapter_list myAdapter_list; //聊天信息展示适配器
     private ListView mListView; //聊天信息listview
     public TextToVoice mT2V; //文字转语音类
-
     /**
      * 用来更新聊天信息的实时变化
      */
@@ -66,11 +69,9 @@ public class Home_Activity extends Activity implements View.OnClickListener {
         setContentView(R.layout.activity_main);
         SpeechUtility.createUtility(this, SpeechConstant.APPID + "=57d6af9a");
         mT2V = new TextToVoice(this);
+
         InitView();
         initData();
-
-        Intent intent = new Intent(Home_Activity.this, VoiceService.class);
-        startService(intent);
     }
 
     /**
@@ -86,21 +87,43 @@ public class Home_Activity extends Activity implements View.OnClickListener {
      * 初始化
      */
     private void InitView() {
+        //右菜单的控件
         mListView = (ListView) findViewById(R.id.list_message);
         sousuo_play = (TextView) findViewById(R.id.sousuo_play);
         write_voice = (TextView) findViewById(R.id.write_voice);
         yuyin_bt = (ImageView) findViewById(R.id.yuyin);
-        send_bt = (Button) findViewById(R.id.send_wenzi);
+        send_bt = (TextView) findViewById(R.id.send_wenzi);
         msg_ed = (EditText) findViewById(R.id.ed_msg_1);
 
+        //侧滑菜单道德控件
+        setting_tv = (TextView) findViewById(R.id.setting_tv);
+
+        togglebt = (ToggleButton) findViewById(R.id.toggle_onoff);
+        togglebt.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Intent voice_service = new Intent(Home_Activity.this,VoiceService.class);
+                if (isChecked){
+                    startService(voice_service);
+                }else {
+                    stopService(voice_service);
+                }
+            }
+        });
+
+        //右菜单的事件响应
         write_voice.setOnClickListener(this);
         sousuo_play.setOnClickListener(this);
         yuyin_bt.setOnClickListener(this);
         send_bt.setOnClickListener(this);
+
+        //侧滑菜单的事件响应
+        setting_tv.setOnClickListener(this);
     }
 
     /**
      * 语音输入从透明actvity返回的语音文本数据
+     *
      * @param requestCode
      * @param resultCode
      * @param data
@@ -143,11 +166,13 @@ public class Home_Activity extends Activity implements View.OnClickListener {
 
     /**
      * 该actvity下的各种响应事件
+     *
      * @param v
      */
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            /***************右主菜单的事件响应操作*******************/
             //发送文字信息
             case R.id.send_wenzi:
                 final String msg = msg_ed.getText().toString();
@@ -188,8 +213,25 @@ public class Home_Activity extends Activity implements View.OnClickListener {
                 Intent play_sousuo = new Intent(Home_Activity.this, Voice_sousuo_Actvity.class);
                 startActivity(play_sousuo);
                 break;
+            //录入文本
             case R.id.write_voice:
                 break;
+
+            /***************侧滑菜单的事件响应操作*******************/
+            //进入设置操作
+            case R.id.setting_tv:
+                Intent setting_intent = new Intent(Home_Activity.this,Setting_Actvity.class);
+                startActivity(setting_intent);
+                break;
+//            case R.id.toggle_onoff:
+//                Intent voice_service = new Intent(Home_Activity.this,VoiceService.class);
+//                if (togglebt.isChecked()){
+//                    startService(voice_service);
+//                }else {
+//                    stopService(voice_service);
+//                }
+//                break;
+
         }
     }
 }

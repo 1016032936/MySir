@@ -37,15 +37,10 @@ import org.json.JSONTokener;
 public class VoiceListen extends Activity {
     private RecognizerDialog mDialog;
     private Mylistener mListener;
-    public int code=0;
+    public int code = 0;
     //    SpeechRecognizer speechRecognizer;
     public Context mContext;
-//
-//    public VoiceListen(Context context) {
-//        mContext = context;
-//
-//
-//    }
+
 
     private InitListener mInitlistener = new InitListener() {
         @Override
@@ -70,8 +65,8 @@ public class VoiceListen extends Activity {
         }
         /**
          * 设置识别参数
-         */
-////        //清空Grammar_ID，防止识别后进行听写时Grammar_ID的干扰
+         //         */
+//////        //清空Grammar_ID，防止识别后进行听写时Grammar_ID的干扰
 //        mDialog.setParameter(SpeechConstant.CLOUD_GRAMMAR, "cloud_grammar");
 //        设置听写Dialog的引擎
         mDialog.setParameter(SpeechConstant.DOMAIN, "iat");
@@ -132,8 +127,8 @@ public class VoiceListen extends Activity {
                 mDialog.dismiss();
             }
             Intent intent = new Intent();
-            intent.putExtra("msg",GetJsonString(recognizerResult.getResultString()));
-            setResult(1,intent);
+            intent.putExtra("msg", GetJsonString(recognizerResult.getResultString()));
+            setResult(1, intent);
             Log.i("xunfei", GetJsonString(recognizerResult.getResultString()));
             finish();
         }

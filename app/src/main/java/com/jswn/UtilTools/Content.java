@@ -5,4 +5,7 @@ package com.jswn.UtilTools;
  */
 public class Content {
     public static String TEXT_VOICE = "text_voice";
+    public static String RENWU_VOICE = "renwuvoice";
+    public static String SUDU = "sudu";
+    public static String TOGGLE = "toggle";
 }

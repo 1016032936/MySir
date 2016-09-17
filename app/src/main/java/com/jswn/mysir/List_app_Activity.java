@@ -1,6 +1,8 @@
 package com.jswn.mysir;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -11,6 +13,7 @@ import android.widget.GridView;
 import com.jswn.AppPriviter.AppInfo_priviter;
 import com.jswn.MyAdapter.AppListAdapter;
 import com.jswn.MyBean.AppInfo;
+import com.jswn.UtilTools.ShowToastUtil;
 
 import java.util.List;
 
@@ -40,7 +43,8 @@ public class List_app_Activity extends Activity {
         list_app_gv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+                LaunchApp(mApplist.get(position));
+                finish();
             }
         });
     }
@@ -63,5 +67,17 @@ public class List_app_Activity extends Activity {
         list_app_gv = (GridView) findViewById(R.id.list_app_gv);
     }
 
-
+    public void LaunchApp(AppInfo appInfo){
+        //通过桌面去启动
+        PackageManager pm = getPackageManager();
+        //通过包名去启动
+        Intent launchApp_intent = pm.getLaunchIntentForPackage(appInfo.PackageName);
+        if (launchApp_intent != null){
+            startActivity(launchApp_intent);
+        }else{
+            ShowToastUtil.showToast(this,"系统应用");
+        }
+    }
 }
+
+

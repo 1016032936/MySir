@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/title_green"
+        android:gravity="center"
+        android:text="设置"
+        android:textColor="#000"
+        android:textSize="25dp" />
+
+    <com.jswn.Myview.SettingItemView
+        android:id="@+id/ren_voice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:setting_title="人物声音">
+    </com.jswn.Myview.SettingItemView>
+
+    <com.jswn.Myview.SettingItemView
+        android:id="@+id/voice_sudu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:setting_title="人物语速">
+    </com.jswn.Myview.SettingItemView>
+
+</LinearLayout>

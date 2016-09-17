@@ -25,4 +25,33 @@ public class SpUtils {
         }
         return sp.getString(key, value);
     }
+
+    public static void setInt(Context context, String key, int value){
+        if (sp == null) {
+            sp = context.getSharedPreferences("Voice", Context.MODE_PRIVATE);
+        }
+        sp.edit().putInt(key, value).commit();
+    }
+
+    public static int getInt(Context context, String key, int value){
+        if (sp == null) {
+            sp = context.getSharedPreferences("Voice", Context.MODE_PRIVATE);
+        }
+        return sp.getInt(key, value);
+    }
+
+
+    public static void setBoolean(Context context, String key, boolean value){
+        if (sp == null) {
+            sp = context.getSharedPreferences("Voice", Context.MODE_PRIVATE);
+        }
+        sp.edit().putBoolean(key, value).commit();
+    }
+
+    public static boolean getBoolean(Context context, String key, boolean defaultvalue){
+        if (sp == null) {
+            sp = context.getSharedPreferences("Voice", Context.MODE_PRIVATE);
+        }
+        return sp.getBoolean(key,defaultvalue);
+    }
 }

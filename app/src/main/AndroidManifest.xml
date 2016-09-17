@@ -17,20 +17,23 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Splash_Activity">
+        <activity android:name=".Home_Activity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Home_Activity" />
+        <activity android:name=".Splash_Activity" />
         <activity android:name=".List_app_Activity" />
-        <activity android:name=".Voice_touming" />
+        <activity
+            android:launchMode="singleTop"
+            android:name=".Voice_touming" />
+        <activity android:name=".Voice_sousuo_Actvity" />
+        <activity android:name=".Setting_Actvity"/>
         <activity
             android:name="com.jswn.XunFeiYuyin.VoiceListen"
             android:theme="@android:style/Theme.Translucent" />
-        <activity android:name=".Voice_sousuo_Actvity"/>
 
         <service android:name="com.jswn.MyService.VoiceService" />
     </application>

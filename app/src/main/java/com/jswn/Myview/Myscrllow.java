@@ -42,12 +42,12 @@ public class Myscrllow extends HorizontalScrollView {
     public Myscrllow(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         //获取我们自定义的属性
-        TypedArray ta = context.getTheme().obtainStyledAttributes(attrs, R.styleable.com_zjy_baiduyuyingdemo_Myscrllow,defStyleAttr,0);
+        TypedArray ta = context.getTheme().obtainStyledAttributes(attrs, R.styleable.Myscrllow,defStyleAttr,0);
         int num = ta.getIndexCount();
         for (int i = 0; i < num; i++) {
             int arrt = ta.getIndex(i);
             switch (arrt) {
-                case R.styleable.com_zjy_baiduyuyingdemo_Myscrllow_rightPadding:
+                case R.styleable.Myscrllow_rightPadding:
                     paddingright = ta.getDimensionPixelSize(arrt,
                         (int) TypedValue.applyDimension(
                                 TypedValue.COMPLEX_UNIT_DIP, 50, context

@@ -3,8 +3,9 @@
 
     <attr name="rightPadding" format="dimension"></attr>
 
-    <declare-styleable name="com.zjy.baiduyuyingdemo.Myscrllow">
+    <declare-styleable name="Myscrllow">
         <attr name="rightPadding"></attr>
     </declare-styleable>
+
 
 </resources>
