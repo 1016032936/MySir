@@ -44,6 +44,8 @@ public class Voice_touming extends Activity {
         String photo = ".*相片.*";
         String phone = "[0-9]*";
         String sms = ".*短信.*";
+        String weixin = ".*微信.*";
+        String qq = ".*QQ.*";
 
 
         if (msg.matches(appstr)) {
@@ -69,7 +71,15 @@ public class Voice_touming extends Activity {
             //音乐
             startmusic();
             finish();
-        } else {
+        }else if (msg.matches(weixin)){
+            //微信
+            startWeixin();
+            finish();
+        }else if (msg.matches(qq)){
+            //QQ
+            startQQ();
+            finish();
+        }else {
             finish();
         }
     }
@@ -102,10 +112,13 @@ public class Voice_touming extends Activity {
     public void startSms(String msg) {
         Intent intent = new Intent(Intent.ACTION_SENDTO);
         ShowToastUtil.showToast(getApplicationContext(), msg);
-        intent.setData(Uri.parse("smsto:" + msg));
+        intent.setData(Uri.parse("smsto:" +msg));
         startActivity(intent);
     }
 
+    /**
+     * 语音启动音乐播放器
+     */
     public void startmusic() {
         mApplist = AppInfo_priviter2.getAppList_Show(this);
         int i = 0;
@@ -117,6 +130,38 @@ public class Voice_touming extends Activity {
         }
     }
 
+    /**
+     * 启动微信
+     */
+    public void startWeixin(){
+        mApplist = AppInfo_priviter2.getAppList_Show(this);
+        int i = 0;
+        for (i = 0; i < mApplist.size(); i++) {
+            if (mApplist.get(i).name.matches(".*微信.*")) {
+                LaunchApp(mApplist.get(i));
+                break;
+            }
+        }
+    }
+
+    /**
+     * 启动qq
+     */
+    public void startQQ(){
+        mApplist = AppInfo_priviter2.getAppList_Show(this);
+        int i = 0;
+        for (i = 0; i < mApplist.size(); i++) {
+            if (mApplist.get(i).name.matches(".*QQ.*")) {
+                LaunchApp(mApplist.get(i));
+                break;
+            }
+        }
+    }
+
+    /**
+     * 寻找指定的应用
+     * @param appInfo
+     */
     public void LaunchApp(AppInfo appInfo) {
         //通过桌面去启动
         PackageManager pm = getPackageManager();

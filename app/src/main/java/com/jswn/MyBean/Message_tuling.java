@@ -1,7 +1,10 @@
 package com.jswn.MyBean;
 
+import com.jswn.UtilTools.ShowToastUtil;
+
 import java.net.URL;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by 极速蜗牛 on 2016/9/9 0009.
@@ -10,20 +13,19 @@ public class Message_tuling {
 
     public String name;
     public int code;
-    public String detailurl;
     public String msg;
     public String url;
     private Type type;
     private Date date;
+    public String desurl;
 
-    public String getDetailurl() {
-        return detailurl;
+    public String getDesurl() {
+        return desurl;
     }
 
-    public void setDetailurl(String detailurl) {
-        this.detailurl = detailurl;
+    public void setDesurl(String desurl) {
+        this.desurl = desurl;
     }
-
 
     public int getCode() {
         return code;

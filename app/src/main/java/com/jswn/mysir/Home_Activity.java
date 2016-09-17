@@ -30,6 +30,7 @@ import com.jswn.MyBean.Message_tuling;
 import com.jswn.MyService.VoiceService;
 import com.jswn.UtilTools.Content;
 import com.jswn.UtilTools.HttpUtils;
+import com.jswn.UtilTools.ShowToastUtil;
 import com.jswn.UtilTools.SpUtils;
 import com.jswn.XunFeiYuyin.TextToVoice;
 import com.jswn.XunFeiYuyin.VoiceListen;
@@ -245,6 +246,8 @@ public class Home_Activity extends Activity implements View.OnClickListener {
                 break;
             //录入文本
             case R.id.write_voice:
+                Intent write_intent = new Intent(Home_Activity.this,Memorandum_actvity.class);
+                startActivity(write_intent);
                 break;
 
             /***************侧滑菜单的事件响应操作*******************/
@@ -263,7 +266,7 @@ public class Home_Activity extends Activity implements View.OnClickListener {
 
     public void startweb(Message_tuling from_msg) {
         String url = from_msg.getUrl();
-        String disurl = from_msg.getDetailurl();
+        String disurl = from_msg.getDesurl();
         if (url != null) {
             linear.setVisibility(View.VISIBLE);
             show.getSettings().setJavaScriptEnabled(true);

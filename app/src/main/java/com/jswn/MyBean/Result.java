@@ -1,6 +1,7 @@
 package com.jswn.MyBean;
 
 import java.net.URL;
+import java.util.List;
 
 /**
  * Created by 极速蜗牛 on 2016/9/9 0009.
@@ -9,14 +10,16 @@ public class Result {
     public int code;
     public String text;
     public String url;
-    public String detailurl;
+    public List<list> list;
 
-    public String getDetailurl() {
-        return detailurl;
+    public List<com.jswn.MyBean.list> getList() {
+        return list;
     }
 
-    public void setDetailurl(String detailurl) {
-        this.detailurl = detailurl;
+    public void setList(List<com.jswn.MyBean.list> list) {
+        if (list != null){
+            this.list = list;
+        }
     }
 
     public String getUrl() {
