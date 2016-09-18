@@ -42,14 +42,18 @@ public class Home_Activity extends Activity implements View.OnClickListener {
     private ImageView yuyin_bt;//语音输入按钮
     private TextView write_voice; //文本录入按钮
     private TextView sousuo_play; //玩转语音
+
     private TextView setting_tv;//侧滑菜单的设置按钮
     private ToggleButton togglebt;//窗口图标开关
+    private TextView app_information;//应用信息
+
     private TextView send_bt; //发送按钮
     private EditText msg_ed; //文字编辑框
     public List<Message_tuling> mdata; //机器人聊天消息类集合
     public MyAdapter_list myAdapter_list; //聊天信息展示适配器
     private ListView mListView; //聊天信息listview
     public TextToVoice mT2V; //文字转语音类
+
     public WebView show;//web控件
     public TextView bt_tv_web;//web隐藏控件
     private LinearLayout linear;//web隐藏的主体
@@ -109,6 +113,9 @@ public class Home_Activity extends Activity implements View.OnClickListener {
         setting_tv = (TextView) findViewById(R.id.setting_tv);
 
         togglebt = (ToggleButton) findViewById(R.id.toggle_onoff);
+
+
+
         togglebt.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -256,6 +263,7 @@ public class Home_Activity extends Activity implements View.OnClickListener {
                 Intent setting_intent = new Intent(Home_Activity.this, Setting_Actvity.class);
                 startActivity(setting_intent);
                 break;
+
 
             /*****web控件主体****/
             case R.id.bt_tv_web:
