@@ -17,11 +17,12 @@
         android:layout_above="@+id/writer_voice_bw"
         android:id="@+id/list_bw"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
     </ListView>
 
     <TextView
+        android:layout_above="@+id/title_bw"
         android:id="@+id/writer_voice_bw"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

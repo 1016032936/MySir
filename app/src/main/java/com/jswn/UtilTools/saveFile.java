@@ -13,7 +13,7 @@ import java.io.IOException;
 public class saveFile {
     public static void saveFile(String text, int postion) {
         File file = Environment.getExternalStorageDirectory().getAbsoluteFile();
-        File file1 = new File(file, postion + "txt");
+        File file1 = new File(file, postion + "jswn.txt");
         FileOutputStream fout = null;
         try {
             fout = new FileOutputStream(file1);

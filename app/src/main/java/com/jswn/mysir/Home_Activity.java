@@ -111,7 +111,7 @@ public class Home_Activity extends Activity implements View.OnClickListener {
 
         //侧滑菜单道德控件
         setting_tv = (TextView) findViewById(R.id.setting_tv);
-
+        app_information = (TextView) findViewById(R.id.app_information);
         togglebt = (ToggleButton) findViewById(R.id.toggle_onoff);
 
 
@@ -145,6 +145,7 @@ public class Home_Activity extends Activity implements View.OnClickListener {
 
         //侧滑菜单的事件响应
         setting_tv.setOnClickListener(this);
+        app_information.setOnClickListener(this);
     }
 
     /**
@@ -268,6 +269,10 @@ public class Home_Activity extends Activity implements View.OnClickListener {
             /*****web控件主体****/
             case R.id.bt_tv_web:
                 linear.setVisibility(View.GONE);
+                break;
+            case R.id.app_information:
+                Intent intent_app_information = new Intent(Home_Activity.this,App_Information_Activity.class);
+                startActivity(intent_app_information);
                 break;
         }
     }
