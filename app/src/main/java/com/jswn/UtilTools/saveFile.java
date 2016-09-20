@@ -11,9 +11,21 @@ import java.io.IOException;
  * Created by 极速蜗牛 on 2016/9/17 0017.
  */
 public class saveFile {
-    public static void saveFile(String text, int postion) {
-        File file = Environment.getExternalStorageDirectory().getAbsoluteFile();
-        File file1 = new File(file, postion + "jswn.txt");
+    static String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/jswn";
+
+    public static void saveFile(String text) {
+
+        File file = new File(path);
+        if (!file.exists()) {
+            try {
+                file.mkdirs();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        long time = System.currentTimeMillis();
+        String timestr = String.valueOf(time);
+        File file1 = new File(file, timestr + "jswn.txt");
         FileOutputStream fout = null;
         try {
             fout = new FileOutputStream(file1);

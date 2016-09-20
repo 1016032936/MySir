@@ -42,6 +42,7 @@ public class Home_Activity extends Activity implements View.OnClickListener {
     private ImageView yuyin_bt;//语音输入按钮
     private TextView write_voice; //文本录入按钮
     private TextView sousuo_play; //玩转语音
+    private TextView show_left_menu;//展示侧滑菜单
 
     private TextView setting_tv;//侧滑菜单的设置按钮
     private ToggleButton togglebt;//窗口图标开关
@@ -247,7 +248,7 @@ public class Home_Activity extends Activity implements View.OnClickListener {
                 Intent intent = new Intent(Home_Activity.this, VoiceListen.class);
                 startActivityForResult(intent, 1);
                 break;
-            //玩转语音搜索
+            //语音搜索
             case R.id.sousuo_play:
                 Intent play_sousuo = new Intent(Home_Activity.this, Voice_sousuo_Actvity.class);
                 startActivity(play_sousuo);

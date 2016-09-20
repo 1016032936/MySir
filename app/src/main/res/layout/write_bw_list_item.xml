@@ -8,7 +8,7 @@
     <TextView
         android:id="@+id/bw_text"
         android:layout_marginTop="6dp"
-        android:background="#dad0d0"
+        android:background="@drawable/enter_isenter"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="20dp"

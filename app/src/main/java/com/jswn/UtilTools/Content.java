@@ -8,4 +8,5 @@ public class Content {
     public static String RENWU_VOICE = "renwuvoice";
     public static String SUDU = "sudu";
     public static String TOGGLE = "toggle";
+    public static String BEIWNGLU = "beiwanglu";
 }

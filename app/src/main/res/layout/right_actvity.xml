@@ -4,15 +4,30 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/title_green"
-        android:gravity="center"
-        android:padding="5dp"
-        android:text="极速蜗牛"
-        android:textColor="#ffff"
-        android:textSize="20dp" />
+        android:background="@drawable/title_green">
+
+        <TextView
+            android:id="@+id/show_left_menu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/more" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+            android:layout_marginRight="15dp"
+            android:padding="5dp"
+            android:text="极速蜗牛"
+            android:textColor="#ffff"
+            android:textSize="20dp" />
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -26,7 +41,7 @@
             android:layout_weight="1"
             android:drawableTop="@drawable/voice_writer"
             android:gravity="center"
-            android:text="文本录入" />
+            android:text="备忘录" />
 
         <TextView
             android:id="@+id/sousuo_play"
@@ -35,7 +50,7 @@
             android:layout_weight="1"
             android:drawableTop="@mipmap/sousuo"
             android:gravity="center"
-            android:text="玩转语音" />
+            android:text="语音搜搜" />
     </LinearLayout>
 
     <ListView
@@ -60,8 +75,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:textColor="#000"
-            android:text="关闭" />
+            android:text="关闭"
+            android:textColor="#000" />
 
         <WebView
             android:id="@+id/web_intent"
