@@ -9,6 +9,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -46,7 +47,7 @@ public class Memorandum_actvity extends Activity implements View.OnClickListener
     private write_adapter strAdapter;
     private ListView listView;
 
-
+    private PopupWindow popupWindow; //popupwindow浮标
     private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -56,6 +57,7 @@ public class Memorandum_actvity extends Activity implements View.OnClickListener
             listView.setSelection(list_text.size() - 1);
         }
     };
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,7 +107,7 @@ public class Memorandum_actvity extends Activity implements View.OnClickListener
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 PopupWindow(view);
-                //记录条目索引值，用来在dialog编辑查找文件显示云文件内容
+                //记录条目索引值，用来在dialog编辑查找文件显示云文件内
                 SpUtils.setInt(getApplicationContext(), Content.BEIWNGLU, position);
             }
         });
@@ -125,7 +127,7 @@ public class Memorandum_actvity extends Activity implements View.OnClickListener
         ed_tv_bw.setOnClickListener(this);
         delete_bw.setOnClickListener(this);
 
-        PopupWindow popupWindow = new PopupWindow(popuview, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+        popupWindow = new PopupWindow(popuview, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
         //设置透明的颜色
         popupWindow.setBackgroundDrawable(new ColorDrawable());
         //指定偏移位置
@@ -157,26 +159,34 @@ public class Memorandum_actvity extends Activity implements View.OnClickListener
         mHandler.sendMessage(msg);
     }
 
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.ed_tv_bw:
+                /**
+                 * popuwindow编辑按钮
+                 */
                 View view = View.inflate(getApplicationContext(), R.layout.write_dialog, null);
                 final EditText ed_show = (EditText) view.findViewById(R.id.ed_show);
 
                 //读取该listView上对应的文本文件显示在dialog上用来修改编辑
-                int postion = SpUtils.getInt(getApplicationContext(), Content.BEIWNGLU, 0);
+                final int postion = SpUtils.getInt(getApplicationContext(), Content.BEIWNGLU, 0);
                 List<File> file = new ArrayList<File>();
                 file = readFile.getFilesPath();
                 ed_show.setText(readFile.getlistFilesText(file.get(postion)).toString());
 
                 final AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setView(view);
+                final List<File> finalFile = file;
                 builder.setPositiveButton("保存", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         String text = ed_show.getText().toString();
-                        saveFile.saveFile(text);
+                        saveFile.saveFileAppen(finalFile.get(postion),text);
+                        initData();
+                        //隐藏，防止错位
+                        popupWindow.dismiss();
                         dialog.dismiss();
                     }
                 });
@@ -189,6 +199,9 @@ public class Memorandum_actvity extends Activity implements View.OnClickListener
                 builder.show();
                 break;
             case R.id.delete_tv_bw:
+                /**
+                 * popuwindow删除按钮
+                 */
                 int postion_delete = SpUtils.getInt(getApplicationContext(), Content.BEIWNGLU, 0);
                 list_text.remove(postion_delete);
                 strAdapter.notifyDataSetChanged();
@@ -196,6 +209,11 @@ public class Memorandum_actvity extends Activity implements View.OnClickListener
                 List<File> file1 = new ArrayList<File>();
                 file1 = readFile.getFilesPath();
                 file1.get(postion_delete).delete();
+
+                //删除后隐藏，避免这个item删掉后，该item的popupwindow错位在另一个item上,导致
+                //连续删除出现崩溃
+                popupWindow.dismiss();
+
                 break;
         }
     }

@@ -44,4 +44,41 @@ public class saveFile {
             }
         }
     }
+
+
+    public static void saveFileAppen(File file ,String text) {
+
+//        File file = new File(path);
+        if (!file.exists()) {
+            try {
+                file.mkdirs();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        long time = System.currentTimeMillis();
+        String timestr = String.valueOf(time);
+        File file1 = new File(file.getAbsolutePath());
+        FileOutputStream fout = null;
+        try {
+            fout = new FileOutputStream(file1);
+            fout.write(text.getBytes());
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (fout != null) {
+                try {
+                    fout.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+
+
+
 }

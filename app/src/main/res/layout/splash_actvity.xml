@@ -23,9 +23,4 @@
         android:layout_above="@+id/woniu"
         android:layout_centerHorizontal="true" />
 
-    <ProgressBar
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tv_version_name"
-        android:layout_centerHorizontal="true" />
 </RelativeLayout>

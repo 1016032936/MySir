@@ -9,8 +9,11 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
+import android.view.Menu;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
@@ -28,6 +31,7 @@ import com.iflytek.cloud.SpeechUtility;
 import com.jswn.MyAdapter.MyAdapter_list;
 import com.jswn.MyBean.Message_tuling;
 import com.jswn.MyService.VoiceService;
+import com.jswn.Myview.Myscrllow;
 import com.jswn.UtilTools.Content;
 import com.jswn.UtilTools.HttpUtils;
 import com.jswn.UtilTools.ShowToastUtil;
@@ -43,6 +47,8 @@ public class Home_Activity extends Activity implements View.OnClickListener {
     private TextView write_voice; //文本录入按钮
     private TextView sousuo_play; //玩转语音
     private TextView show_left_menu;//展示侧滑菜单
+
+    private Myscrllow myscrllow;//自定义view
 
     private TextView setting_tv;//侧滑菜单的设置按钮
     private ToggleButton togglebt;//窗口图标开关
@@ -110,6 +116,11 @@ public class Home_Activity extends Activity implements View.OnClickListener {
         send_bt = (TextView) findViewById(R.id.send_wenzi);
         msg_ed = (EditText) findViewById(R.id.ed_msg_1);
 
+        show_left_menu = (TextView) findViewById(R.id.show_left_menu);
+
+        myscrllow = (Myscrllow) findViewById(R.id.menu_bt_show);
+
+
         //侧滑菜单道德控件
         setting_tv = (TextView) findViewById(R.id.setting_tv);
         app_information = (TextView) findViewById(R.id.app_information);
@@ -143,6 +154,8 @@ public class Home_Activity extends Activity implements View.OnClickListener {
         sousuo_play.setOnClickListener(this);
         yuyin_bt.setOnClickListener(this);
         send_bt.setOnClickListener(this);
+
+        show_left_menu.setOnClickListener(this);
 
         //侧滑菜单的事件响应
         setting_tv.setOnClickListener(this);
@@ -259,6 +272,11 @@ public class Home_Activity extends Activity implements View.OnClickListener {
                 startActivity(write_intent);
                 break;
 
+            case R.id.show_left_menu:
+//                Myscrllow n = new Myscrllow(this);
+                myscrllow.toogleMenu();
+                break;
+
             /***************侧滑菜单的事件响应操作*******************/
             //进入设置操作
             case R.id.setting_tv:
@@ -271,6 +289,8 @@ public class Home_Activity extends Activity implements View.OnClickListener {
             case R.id.bt_tv_web:
                 linear.setVisibility(View.GONE);
                 break;
+
+
             case R.id.app_information:
                 Intent intent_app_information = new Intent(Home_Activity.this,App_Information_Activity.class);
                 startActivity(intent_app_information);
@@ -278,6 +298,10 @@ public class Home_Activity extends Activity implements View.OnClickListener {
         }
     }
 
+    /**
+     * 对话操作相应网页显示
+     * @param from_msg
+     */
     public void startweb(Message_tuling from_msg) {
         String url = from_msg.getUrl();
         String disurl = from_msg.getDesurl();
@@ -286,6 +310,17 @@ public class Home_Activity extends Activity implements View.OnClickListener {
             show.getSettings().setJavaScriptEnabled(true);
             show.getSettings().setBlockNetworkImage(false);
             show.setWebViewClient(new WebViewClient());
+            //优先使用缓存
+            show.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
+            //提高渲染的优先级
+            show.getSettings().setRenderPriority(WebSettings.RenderPriority.HIGH);
+            //把图片加载放在最后来加载渲染
+            show.getSettings().setBlockNetworkImage(true);
+            // 开启H5(APPCache)缓存功能
+            show.getSettings().setAppCacheEnabled(true);
+            // 开启 DOM storage 功能
+            show.getSettings().setDomStorageEnabled(true);
+
             show.loadUrl(url);
             url = "";
         } else if (disurl != null) {

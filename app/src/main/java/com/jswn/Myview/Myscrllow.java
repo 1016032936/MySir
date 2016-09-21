@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.ViewGroup;
@@ -21,6 +22,8 @@ public class Myscrllow extends HorizontalScrollView {
     private LinearLayout mWapper;
     private ViewGroup mMenu;
     private ViewGroup mContent;
+    private boolean isOpen = false;
+
     //菜单栏的宽度
     private int mMenuWidth;
 
@@ -31,27 +34,30 @@ public class Myscrllow extends HorizontalScrollView {
     private boolean once;
 
     public Myscrllow(Context context) {
-        this(context,null);
+
+
+        this(context, null);
+        Log.i("myscrow",0+"****************************");
     }
 
     public Myscrllow(Context context, AttributeSet attrs) {
-       // super(context,attrs);
-        this(context,null,0);
-    }
-
-    public Myscrllow(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
+         super(context,attrs);
+//        this(context, null, 0);
+        Log.i("myscrow",1+"****************************");
+//        super(context, attrs, defStyleAttr);
         //获取我们自定义的属性
-        TypedArray ta = context.getTheme().obtainStyledAttributes(attrs, R.styleable.Myscrllow,defStyleAttr,0);
+//        Log.i("myscrow",2+"****************************");
+
+        TypedArray ta = context.getTheme().obtainStyledAttributes(attrs, R.styleable.Myscrllow, 0, 0);
         int num = ta.getIndexCount();
         for (int i = 0; i < num; i++) {
             int arrt = ta.getIndex(i);
             switch (arrt) {
                 case R.styleable.Myscrllow_rightPadding:
                     paddingright = ta.getDimensionPixelSize(arrt,
-                        (int) TypedValue.applyDimension(
-                                TypedValue.COMPLEX_UNIT_DIP, 50, context
-                                        .getResources().getDisplayMetrics()));
+                            (int) TypedValue.applyDimension(
+                                    TypedValue.COMPLEX_UNIT_DIP, 50, context
+                                            .getResources().getDisplayMetrics()));
 
                     break;
             }
@@ -62,8 +68,38 @@ public class Myscrllow extends HorizontalScrollView {
         DisplayMetrics outMetrics = new DisplayMetrics();
         wm.getDefaultDisplay().getMetrics(outMetrics);
         mScreenWidth = outMetrics.widthPixels;
-
     }
+
+    public Myscrllow(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+        //获取我们自定义的属性
+        Log.i("myscrow",2+"****************************");
+
+        TypedArray ta = context.getTheme().obtainStyledAttributes(attrs, R.styleable.Myscrllow, defStyleAttr, 0);
+        int num = ta.getIndexCount();
+        for (int i = 0; i < num; i++) {
+            int arrt = ta.getIndex(i);
+            switch (arrt) {
+                case R.styleable.Myscrllow_rightPadding:
+                    paddingright = ta.getDimensionPixelSize(arrt,
+                            (int) TypedValue.applyDimension(
+                                    TypedValue.COMPLEX_UNIT_DIP, 50, context
+                                            .getResources().getDisplayMetrics()));
+
+                    break;
+            }
+        }
+
+        ta.recycle();
+        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        DisplayMetrics outMetrics = new DisplayMetrics();
+        wm.getDefaultDisplay().getMetrics(outMetrics);
+        mScreenWidth = outMetrics.widthPixels;
+    }
+
+
+
+
 
     /**
      * 设置子View的宽和高 设置自己的宽和高
@@ -104,11 +140,44 @@ public class Myscrllow extends HorizontalScrollView {
                 int scrollX = getScrollX();
                 if (scrollX >= mMenuWidth / 3) {
                     this.smoothScrollTo(mMenuWidth, 0);
+                    isOpen = false;
                 } else {
                     this.smoothScrollTo(0, 0);
+//                    this.smoothScrollTo(mMenuWidth, 0);
+                    isOpen = true;
                 }
                 return true;
         }
-        return super.onTouchEvent(ev);
+        return false;
+    }
+
+    /**
+     * 打开菜单
+     */
+    public void openMenu() {
+        if (isOpen) {
+            return;
+        }
+        this.smoothScrollTo(0, 0);
+        isOpen = true;
+    }
+
+    /**
+     * 关闭菜单
+     */
+    public void closeMenu() {
+        if (!isOpen) {
+            return;
+        }
+        this.smoothScrollTo(mMenuWidth, 0);
+        isOpen = false;
+    }
+
+    public void toogleMenu() {
+        if (isOpen) {
+            closeMenu();
+        } else {
+            openMenu();
+        }
     }
 }
