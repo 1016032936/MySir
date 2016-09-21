@@ -80,6 +80,7 @@ public class Voice_touming extends Activity {
             startQQ();
             finish();
         }else {
+            ShowToastUtil.showToast(getApplicationContext(),"目前还不会，可以到聊天界面试试");
             finish();
         }
     }

@@ -25,6 +25,11 @@ public class TextToVoice {
         voice_code = SpUtils.getInt(mContext, Content.RENWU_VOICE,0);
         voice_sudu = SpUtils.getInt(mContext,Content.SUDU,0);
     }
+
+    /**
+     * 文字转化为声音
+     * @param str
+     */
     public void Tetx2voice(String str){
         SpeechSynthesizer speechSynthesizer = SpeechSynthesizer.createSynthesizer(mContext,null);
         speechSynthesizer.setParameter(SpeechConstant.VOICE_NAME, ren_voice[voice_code]);//设置发音人
