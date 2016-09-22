@@ -1,22 +1,17 @@
 package com.jswn.mysir;
 
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
-import android.view.Menu;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -24,7 +19,6 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.ToggleButton;
 
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechUtility;
@@ -32,10 +26,7 @@ import com.jswn.MyAdapter.MyAdapter_list;
 import com.jswn.MyBean.Message_tuling;
 import com.jswn.MyService.VoiceService;
 import com.jswn.Myview.Myscrllow;
-import com.jswn.UtilTools.Content;
 import com.jswn.UtilTools.HttpUtils;
-import com.jswn.UtilTools.ShowToastUtil;
-import com.jswn.UtilTools.SpUtils;
 import com.jswn.XunFeiYuyin.TextToVoice;
 import com.jswn.XunFeiYuyin.VoiceListen;
 
@@ -51,7 +42,7 @@ public class Home_Activity extends Activity implements View.OnClickListener {
     private Myscrllow myscrllow;//自定义view
 
     private TextView setting_tv;//侧滑菜单的设置按钮
-    private ToggleButton togglebt;//窗口图标开关
+    private CheckBox togglebt;//窗口图标开关
     private TextView app_information;//应用信息
 
     private TextView send_bt; //发送按钮
@@ -124,8 +115,7 @@ public class Home_Activity extends Activity implements View.OnClickListener {
         //侧滑菜单道德控件
         setting_tv = (TextView) findViewById(R.id.setting_tv);
         app_information = (TextView) findViewById(R.id.app_information);
-        togglebt = (ToggleButton) findViewById(R.id.toggle_onoff);
-
+        togglebt = (CheckBox) findViewById(R.id.toggle_onoff);
 
 
         togglebt.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -139,7 +129,6 @@ public class Home_Activity extends Activity implements View.OnClickListener {
                 }
             }
         });
-
 
         //web控件主体
         show = (WebView) findViewById(R.id.web_intent);
@@ -328,6 +317,16 @@ public class Home_Activity extends Activity implements View.OnClickListener {
             show.getSettings().setJavaScriptEnabled(true);
             show.getSettings().setBlockNetworkImage(false);
             show.setWebViewClient(new WebViewClient());
+            //优先使用缓存
+            show.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
+            //提高渲染的优先级
+            show.getSettings().setRenderPriority(WebSettings.RenderPriority.HIGH);
+            //把图片加载放在最后来加载渲染
+            show.getSettings().setBlockNetworkImage(true);
+            // 开启H5(APPCache)缓存功能
+            show.getSettings().setAppCacheEnabled(true);
+            // 开启 DOM storage 功能
+            show.getSettings().setDomStorageEnabled(true);
             show.loadUrl(disurl);
             url = "";
         }

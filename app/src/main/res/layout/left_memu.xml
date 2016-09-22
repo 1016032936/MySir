@@ -34,7 +34,7 @@
                 android:textColor="#000"
                 android:textSize="23sp" />
 
-            <ToggleButton
+            <CheckBox
                 style="@style/MyToggle"
                 android:id="@+id/toggle_onoff"
                 android:layout_marginLeft="10dp"

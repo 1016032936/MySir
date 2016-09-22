@@ -40,16 +40,15 @@
 
                 <ScrollView
                     android:id="@+id/scr"
-                    android:fillViewport="true"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_above="@+id/fgg2"
-                    android:layout_below="@+id/ffg">
+                    android:layout_below="@+id/ffg"
+                    android:fillViewport="true">
 
                     <include layout="@layout/right_actvity" />
                 </ScrollView>
             </RelativeLayout>
-
         </LinearLayout>
     </com.jswn.Myview.Myscrllow>
 </RelativeLayout>
