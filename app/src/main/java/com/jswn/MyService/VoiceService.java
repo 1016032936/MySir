@@ -93,11 +93,6 @@ public class VoiceService extends Service {
                         starty = (int) event.getRawY();
                         break;
                     case MotionEvent.ACTION_UP:
-
-//                        Intent intent = new Intent(getBaseContext(), VoiceListen.class);
-//                       intent.setFlags(intent.FLAG_ACTIVITY_NEW_TASK);
-//                        startActivity(intent);
-
                         Intent intent = new Intent(getBaseContext(), Voice_touming.class);
                         intent.setFlags(intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intent);

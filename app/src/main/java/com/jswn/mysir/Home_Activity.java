@@ -26,7 +26,9 @@ import com.jswn.MyAdapter.MyAdapter_list;
 import com.jswn.MyBean.Message_tuling;
 import com.jswn.MyService.VoiceService;
 import com.jswn.Myview.Myscrllow;
+import com.jswn.UtilTools.Content;
 import com.jswn.UtilTools.HttpUtils;
+import com.jswn.UtilTools.SpUtils;
 import com.jswn.XunFeiYuyin.TextToVoice;
 import com.jswn.XunFeiYuyin.VoiceListen;
 
@@ -43,6 +45,7 @@ public class Home_Activity extends Activity implements View.OnClickListener {
 
     private TextView setting_tv;//侧滑菜单的设置按钮
     private CheckBox togglebt;//窗口图标开关
+    private CheckBox tg_voice_onoff;//语音合成开关
     private TextView app_information;//应用信息
 
     private TextView send_bt; //发送按钮
@@ -62,7 +65,10 @@ public class Home_Activity extends Activity implements View.OnClickListener {
         @Override
         public void handleMessage(Message msg) {
             Message_tuling from_msg = (Message_tuling) msg.obj;
-            mT2V.Tetx2voice(from_msg.msg);
+            boolean flag = SpUtils.getBoolean(Home_Activity.this,Content.ISVOICE,false);
+            if (flag){
+                mT2V.Tetx2voice(from_msg.msg);
+            }
             /**有url时会显示***/
             startweb(from_msg);
 
@@ -116,6 +122,7 @@ public class Home_Activity extends Activity implements View.OnClickListener {
         setting_tv = (TextView) findViewById(R.id.setting_tv);
         app_information = (TextView) findViewById(R.id.app_information);
         togglebt = (CheckBox) findViewById(R.id.toggle_onoff);
+        tg_voice_onoff = (CheckBox) findViewById(R.id.tg_voice_onoff);
 
 
         togglebt.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -126,6 +133,19 @@ public class Home_Activity extends Activity implements View.OnClickListener {
                     startService(voice_service);
                 } else {
                     stopService(voice_service);
+                }
+            }
+        });
+
+        boolean flag = SpUtils.getBoolean(this,Content.ISVOICE,false);
+        tg_voice_onoff.setChecked(flag);
+        tg_voice_onoff.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (b){
+                    SpUtils.setBoolean(Home_Activity.this,Content.ISVOICE,b);
+                }else {
+                    SpUtils.setBoolean(Home_Activity.this,Content.ISVOICE,b);
                 }
             }
         });

@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.Window;
 
 import com.jswn.AppPriviter.AppInfo_priviter;
@@ -31,7 +32,6 @@ public class Voice_touming extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.toumin);
         Intent intent = new Intent(getBaseContext(), VoiceListen.class);
-//        intent.setFlags(intent.FLAG_ACTIVITY_NEW_TASK);
         startActivityForResult(intent, 0);
     }
 
@@ -175,4 +175,11 @@ public class Voice_touming extends Activity {
         }
     }
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+//        if(keyCode == KeyEvent.KEYCODE_BACK){
+//            onDestroy();
+//        }
+        return super.onKeyDown(keyCode, event);
+    }
 }

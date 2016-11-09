@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">蜗牛语音助手</string>
+    <string name="app_name">互动语音</string>
     <string name="app_information">
                 1.支持语音拨打电话（示范：123456789）\n
                 2.支持语音短信（示范：.*短信.* 123456789）\n

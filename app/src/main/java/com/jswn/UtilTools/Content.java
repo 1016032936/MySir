@@ -9,4 +9,5 @@ public class Content {
     public static String SUDU = "sudu";
     public static String TOGGLE = "toggle";
     public static String BEIWNGLU = "beiwanglu";
+    public static String ISVOICE = "isvoice";
 }

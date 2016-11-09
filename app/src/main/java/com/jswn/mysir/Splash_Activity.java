@@ -59,15 +59,15 @@ public class Splash_Activity extends Activity {
                     showUpdateDialog();
                     break;
                 case 1:
-                    ShowToastUtil.showToast(getApplicationContext(), "url异常");
+//                    ShowToastUtil.showToast(getApplicationContext(), "url异常");
                     GoHome();
                     break;
                 case 2:
-                    ShowToastUtil.showToast(getApplicationContext(), "io异常");
+//                    ShowToastUtil.showToast(getApplicationContext(), "io异常");
                     GoHome();
                     break;
                 case 3:
-                    ShowToastUtil.showToast(getApplicationContext(), "json异常");
+//                    ShowToastUtil.showToast(getApplicationContext(), "json异常");
                     GoHome();
                     break;
                 case 4:
@@ -172,9 +172,9 @@ public class Splash_Activity extends Activity {
                     msg.what = JSON_ERROR;
                 } finally {
                     long endTime = SystemClock.currentThreadTimeMillis();
-                    if (endTime - startTime < 2000) {
+                    if (endTime - startTime < 1800) {
                         try {
-                            Thread.sleep(2000 - (endTime - startTime));
+                            Thread.sleep(1800 - (endTime - startTime));
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
