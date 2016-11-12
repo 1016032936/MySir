@@ -3,8 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:focusable="true"
+    android:padding="5dp"
     android:focusableInTouchMode="true"
-    android:background="@drawable/title_green">
+    android:background="#60cfb7">
 
     <ImageView
         android:id="@+id/yuyin"

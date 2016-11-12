@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.jswn.mysir">
+    <!--百度广告-->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
@@ -27,17 +37,36 @@
         <activity android:name=".Home_Activity" />
         <activity android:name=".List_app_Activity" />
         <activity
-            android:launchMode="singleTop"
-            android:name=".Voice_touming" />
+            android:name=".Voice_touming"
+            android:launchMode="singleTop" />
         <activity android:name=".Voice_sousuo_Actvity" />
-        <activity android:name=".Setting_Actvity"/>
+        <activity android:name=".Setting_Actvity" />
         <activity
             android:name="com.jswn.XunFeiYuyin.VoiceListen"
             android:theme="@android:style/Theme.Translucent" />
-        <activity android:name=".Memorandum_actvity"/>
-        <activity android:name=".App_Information_Activity"/>
+        <activity android:name=".Memorandum_actvity" />
+        <activity android:name=".App_Information_Activity" />
 
         <service android:name="com.jswn.MyService.VoiceService" />
+
+
+        <receiver android:name="com.baidu.appx.app_download.CompleteReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.DOWNLOAD_COMPLETE" />
+                4
+
+                <action android:name="android.intent.action.DOWNLOAD_NOTIFICATION_CLICKED" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_ADDED" />
+                <data android:scheme="package" />
+            </intent-filter>
+        </receiver>
+        <activity
+            android:name="com.baidu.appx.uikit.BDActivity"
+            android:configChanges="orientation|screenSize"></activity>
+
+
     </application>
 
 </manifest>

@@ -8,8 +8,8 @@ android {
         applicationId "com.jswn.mysir"
         minSdkVersion 15
         targetSdkVersion 23
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "2.0"
     }
     buildTypes {
         release {
@@ -27,4 +27,7 @@ dependencies {
     compile files('libs/gson-2.2.4.jar')
     compile files('libs/Msc.jar')
     compile files('libs/Sunflower.jar')
+    compile files('libs/android-support-v4.jar')
+    compile files('libs/baidu_cuid.jar')
+    compile files('libs/BaiduAppX_V2.4.1_20160530.jar')
 }

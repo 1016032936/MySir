@@ -26,13 +26,26 @@
             android:drawableTop="@mipmap/sousuo"
             android:gravity="center"
             android:text="语音搜搜" />
+
+        <TextView
+            android:id="@+id/baidu_store"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="应用列表扩展"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/app_store"
+            android:gravity="center"/>
     </LinearLayout>
 
+
+
     <FrameLayout
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <ListView
+            android:layout_marginTop="5dp"
             android:id="@+id/list_message"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

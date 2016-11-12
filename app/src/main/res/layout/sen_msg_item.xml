@@ -17,15 +17,7 @@
             android:id="@+id/from_msg_imag"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/panda" />
-
-        <TextView
-            android:id="@+id/woniu"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="蜗牛"
-            android:textSize="15dp" />
+            android:src="@drawable/touxiang" />
     </LinearLayout>
 
     <TextView

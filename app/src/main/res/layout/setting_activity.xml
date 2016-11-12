@@ -8,7 +8,8 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/title_green"
+        android:background="#60cfb7"
+        android:padding="5dp"
         android:gravity="center"
         android:text="设置"
         android:textColor="#000"

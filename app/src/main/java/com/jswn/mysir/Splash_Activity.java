@@ -15,7 +15,9 @@ import android.os.SystemClock;
 import android.view.animation.AlphaAnimation;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.baidu.appx.BDSplashAd;
 import com.jswn.UtilTools.ShowToastUtil;
 import com.jswn.UtilTools.StreamUtil;
 import com.lidroid.xutils.HttpUtils;
@@ -43,6 +45,9 @@ public class Splash_Activity extends Activity {
     private int mLoactionCode;
     private String mDownLoadUrl;
     private String mVersionDes;
+
+    private BDSplashAd splashAd = null;
+
 
     private final int UPDATE = 0;//版本更新通知码
     private final int URL_ERROR = 1;//url异常
@@ -94,6 +99,7 @@ public class Splash_Activity extends Activity {
         initData();
         setAnimation();
     }
+
     /**
      * 动画
      */
@@ -103,6 +109,7 @@ public class Splash_Activity extends Activity {
         mSplash_act.setAnimation(ap);
         mSplash_act.startLayoutAnimation();
     }
+
     /**
      * 初始化数据
      */

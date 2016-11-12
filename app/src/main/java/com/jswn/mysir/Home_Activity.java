@@ -58,6 +58,8 @@ public class Home_Activity extends Activity implements View.OnClickListener {
     public WebView show;//web控件
     public TextView bt_tv_web;//web隐藏控件
     private LinearLayout linear;//web隐藏的主体
+
+    public BaiDuAPPX baiDuAPPX;
     /**
      * 用来更新聊天信息的实时变化
      */
@@ -88,8 +90,27 @@ public class Home_Activity extends Activity implements View.OnClickListener {
         SpeechUtility.createUtility(this, SpeechConstant.APPID + "=57d6af9a");
         mT2V = new TextToVoice(this);
 
+        baiDuAPPX = new BaiDuAPPX(Home_Activity.this);
+        baiDuAPPX.show_inter();
+        mHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                baiDuAPPX.show_inter();
+            }
+        });
         InitView();
         initData();
+    }
+
+    @Override
+    protected void onRestart() {
+        mHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                baiDuAPPX.show_inter();
+            }
+        });
+        super.onRestart();
     }
 
     /**
@@ -99,6 +120,13 @@ public class Home_Activity extends Activity implements View.OnClickListener {
         mdata = new ArrayList<Message_tuling>();
         myAdapter_list = new MyAdapter_list(Home_Activity.this, mdata);
         mListView.setAdapter(myAdapter_list);
+    }
+
+    @Override
+    protected void onDestroy() {
+        baiDuAPPX.destory();
+        super.onDestroy();
+
     }
 
     /**
@@ -316,39 +344,28 @@ public class Home_Activity extends Activity implements View.OnClickListener {
         String disurl = from_msg.getDesurl();
         if (url != null) {
             linear.setVisibility(View.VISIBLE);
-            show.getSettings().setJavaScriptEnabled(true);
-            show.getSettings().setBlockNetworkImage(false);
-            show.setWebViewClient(new WebViewClient());
-            //优先使用缓存
-            show.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
-            //提高渲染的优先级
-            show.getSettings().setRenderPriority(WebSettings.RenderPriority.HIGH);
-            //把图片加载放在最后来加载渲染
-            show.getSettings().setBlockNetworkImage(true);
-            // 开启H5(APPCache)缓存功能
-            show.getSettings().setAppCacheEnabled(true);
-            // 开启 DOM storage 功能
-            show.getSettings().setDomStorageEnabled(true);
-
-            show.loadUrl(url);
-            url = "";
+            webYouhua(url,disurl);
         } else if (disurl != null) {
             linear.setVisibility(View.VISIBLE);
-            show.getSettings().setJavaScriptEnabled(true);
-            show.getSettings().setBlockNetworkImage(false);
-            show.setWebViewClient(new WebViewClient());
-            //优先使用缓存
-            show.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
-            //提高渲染的优先级
-            show.getSettings().setRenderPriority(WebSettings.RenderPriority.HIGH);
-            //把图片加载放在最后来加载渲染
-            show.getSettings().setBlockNetworkImage(true);
-            // 开启H5(APPCache)缓存功能
-            show.getSettings().setAppCacheEnabled(true);
-            // 开启 DOM storage 功能
-            show.getSettings().setDomStorageEnabled(true);
-            show.loadUrl(disurl);
-            url = "";
+            webYouhua(url,disurl);
         }
+    }
+
+    public void webYouhua(String url,String disurl){
+        show.getSettings().setJavaScriptEnabled(true);
+        show.getSettings().setBlockNetworkImage(false);
+        show.setWebViewClient(new WebViewClient());
+        //优先使用缓存
+        show.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
+        //提高渲染的优先级
+        show.getSettings().setRenderPriority(WebSettings.RenderPriority.HIGH);
+        //把图片加载放在最后来加载渲染
+        show.getSettings().setBlockNetworkImage(true);
+        // 开启H5(APPCache)缓存功能
+        show.getSettings().setAppCacheEnabled(true);
+        // 开启 DOM storage 功能
+        show.getSettings().setDomStorageEnabled(true);
+        show.loadUrl(disurl);
+        url = "";
     }
 }

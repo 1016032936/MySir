@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#d8f9e3">
+    android:background="#60cfb7">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -10,15 +10,20 @@
         android:orientation="vertical"
         android:paddingTop="40dp">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:background="@mipmap/panda_user" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp">
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_centerInParent="true"
+                android:background="@drawable/touxiang" />
+        </RelativeLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
             android:orientation="horizontal">
 
             <TextView
@@ -26,23 +31,21 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:layout_marginTop="50dp"
                 android:background="@drawable/enter_isenter"
                 android:drawableLeft="@mipmap/woniu"
                 android:gravity="center_vertical"
                 android:text="语音悬浮栏"
                 android:textColor="#000"
-                android:textSize="23sp" />
+                android:textSize="18sp" />
 
             <CheckBox
-                style="@style/MyToggle"
                 android:id="@+id/toggle_onoff"
-                android:layout_marginLeft="20dp"
+                style="@style/MyToggle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="50dp"
-                android:gravity="center"
+                android:layout_marginLeft="20dp"
                 android:background="@null"
+                android:gravity="center"
                 android:textOff="关闭"
                 android:textOn="启动" />
         </LinearLayout>
@@ -62,15 +65,15 @@
                 android:gravity="center_vertical"
                 android:text="语音合成"
                 android:textColor="#000"
-                android:textSize="23sp" />
+                android:textSize="18sp" />
 
             <CheckBox
-                style="@style/MyToggle"
-                android:background="@null"
                 android:id="@+id/tg_voice_onoff"
-                android:layout_marginLeft="20dp"
+                style="@style/MyToggle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:background="@null"
                 android:gravity="center"
                 android:textOff="关闭"
                 android:textOn="启动" />
@@ -87,7 +90,7 @@
             android:gravity="center_vertical"
             android:text="设置"
             android:textColor="#000"
-            android:textSize="23sp" />
+            android:textSize="18sp"  />
 
         <TextView
             android:id="@+id/app_information"
@@ -100,7 +103,7 @@
             android:gravity="center_vertical"
             android:text="应用信息"
             android:textColor="#000"
-            android:textSize="23sp" />
+            android:textSize="18sp"  />
     </LinearLayout>
 
 </RelativeLayout>

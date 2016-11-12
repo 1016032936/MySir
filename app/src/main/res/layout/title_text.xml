@@ -1,25 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#60cfb7"
+    android:padding="5dp">
+
+    <TextView
+        android:id="@+id/show_left_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="10dp"
+        android:background="@drawable/more" />
+
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/title_green">
-
-        <TextView
-            android:id="@+id/show_left_menu"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="10dp"
-            android:background="@drawable/more" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginRight="15dp"
-            android:gravity="center"
-            android:padding="5dp"
-            android:text="极速蜗牛"
-            android:textColor="#ffff"
-            android:textSize="20dp" />
+        android:layout_gravity="center_vertical"
+        android:layout_marginRight="15dp"
+        android:gravity="center"
+        android:padding="5dp"
+        android:text="互动语音"
+        android:textColor="#ffff"
+        android:textSize="20dp" />
 </LinearLayout>
